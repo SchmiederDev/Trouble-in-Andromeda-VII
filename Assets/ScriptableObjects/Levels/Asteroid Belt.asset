@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a768de6b2adfeb478685442703287b8, type: 3}
+  m_Name: Asteroid Belt
+  m_EditorClassIdentifier: 
+  LevelName: Asteroid Belt
+  LevelObjective: Oh, no. There is trouble in Andromeda VII. The confederated Union
+    of Space Equals was attacked by the evil authoritarian Alien Empire of Blurp.
+    You must aid the union in its Fight for Freedom and Equality. But first, you
+    must navigate through the dangerous asteroid field of the outer rim.
+  XPThreshold: 200
+  TimeThreshold: 1
+  MissionObjectiveTime: 0
+  LevelCollectables:
+  - {fileID: 11400000, guid: 6d41c2ae391beb84ea6683cc49ed838f, type: 2}
+  - {fileID: 11400000, guid: 88865ae94cdfd754e92dbd40cb547577, type: 2}
+  LevelEnemies:
+  - {fileID: 11400000, guid: fbad98c595daf4a47a11b9b09525f60a, type: 2}
+  - {fileID: 11400000, guid: 31f19e86394237f429ad3a910fa0ddea, type: 2}
