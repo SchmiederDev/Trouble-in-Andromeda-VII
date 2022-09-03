@@ -1262,6 +1262,26 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5296147701974284791, guid: 000ef9c94506bc2488115b6421c74945, type: 3}
+      propertyPath: GameSounds.Array.size
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5296147701974284791, guid: 000ef9c94506bc2488115b6421c74945, type: 3}
+      propertyPath: GameSounds.Array.data[7].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: c28f5409a7c16314e87cbd69cea0679a, type: 3}
+    - target: {fileID: 5296147701974284791, guid: 000ef9c94506bc2488115b6421c74945, type: 3}
+      propertyPath: GameSounds.Array.data[7].name
+      value: LaserHit_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 5296147701974284791, guid: 000ef9c94506bc2488115b6421c74945, type: 3}
+      propertyPath: GameSounds.Array.data[7].pitch
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5296147701974284791, guid: 000ef9c94506bc2488115b6421c74945, type: 3}
+      propertyPath: GameSounds.Array.data[7].volume
+      value: 0.25
+      objectReference: {fileID: 0}
     - target: {fileID: 5296147702182349432, guid: 000ef9c94506bc2488115b6421c74945, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: -185
