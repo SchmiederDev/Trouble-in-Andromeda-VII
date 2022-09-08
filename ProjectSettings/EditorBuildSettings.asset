@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Level_02_TheFirstEncounter.unity
     guid: c81a80195a95ef04cbe19d71b98403f2
+  - enabled: 1
+    path: Assets/Scenes/Level_03_CutOffTheSupplyLines.unity
+    guid: 6a08f321bdc307444a203b1b00ceb457
   m_configObjects: {}
