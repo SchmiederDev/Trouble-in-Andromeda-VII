@@ -1563,6 +1563,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -120
       objectReference: {fileID: 0}
+    - target: {fileID: 5738209157212268418, guid: 000ef9c94506bc2488115b6421c74945, type: 3}
+      propertyPath: fadeInRate
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 5738209157212268418, guid: 000ef9c94506bc2488115b6421c74945, type: 3}
+      propertyPath: fadeOutRate
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 5882625154523856457, guid: 000ef9c94506bc2488115b6421c74945, type: 3}
       propertyPath: QuitButton
       value: 
