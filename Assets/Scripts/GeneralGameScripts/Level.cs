@@ -10,6 +10,9 @@ public class Level : ScriptableObject
     public int TimeThreshold;
 
     public bool MissionObjectiveTime;
+    public bool hasGatherObjective;
+
+    public string gatherType;
 
     public LevelSpawnObject[] LevelCollectables;
     public LevelSpawnEnemy[] LevelEnemies;
