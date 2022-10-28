@@ -59,6 +59,8 @@ public class TheGame : MonoBehaviour
 
     private bool ReadyForNextLevel = false;
 
+    private FlashText FlashMessage;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -79,6 +81,7 @@ public class TheGame : MonoBehaviour
 
     private void Init_TheGame()
     {
+        FlashMessage = GetComponentInChildren<FlashText>();
         Timer = GetComponentInChildren<GameTimer>();
         Timer.Init_Timer();
         MaxLevelIndex = SceneManager.sceneCountInBuildSettings;
@@ -167,6 +170,7 @@ public class TheGame : MonoBehaviour
         MainEnemySpawner = GetComponentInChildren<EnemySpawner>();
         ActiveLevel = GameLevels[0];
         CurrentLevelThreshold = ActiveLevel.XPThreshold;
+        PlayerUnionFighter.ResetWeapons();
         Init_Spawners();
     }
 
@@ -316,6 +320,11 @@ public class TheGame : MonoBehaviour
 
         bool IsSpaceOccupied = ActiveEnemies.TrueForAll(EnemyElement => EnemyElement.transform.position.y < minNegativeDistance || EnemyElement.transform.position.y > maxPositiveDistance);
         return IsSpaceOccupied;
+    }
+
+    public void Set_FlashMessage(string message)
+    {        
+        FlashMessage.MessageChanged.Invoke(message);
     }
 
 }
