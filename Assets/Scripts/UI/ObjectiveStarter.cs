@@ -74,6 +74,12 @@ public class ObjectiveStarter : MonoBehaviour
         {
             TheGame.theGameInst.MissionCanBegin = true;
             TheGame.theGameInst.onMissionCanBegin.Invoke();
+
+            if(TheGame.theGameInst.ActiveLevel.UnlockLevelAccomplishment)
+            {
+                TheGame.theGameInst.Set_FlashMessage(TheGame.theGameInst.ActiveLevel.UnlockText);
+                TheGame.theGameInst.PlayerUnionFighter.ActivateWeapon(TheGame.theGameInst.ActiveLevel.UnlockIndex);
+            }
         }
     }
 
