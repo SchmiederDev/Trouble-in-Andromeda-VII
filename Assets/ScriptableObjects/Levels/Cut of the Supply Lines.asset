@@ -13,11 +13,18 @@ MonoBehaviour:
   m_Name: Cut of the Supply Lines
   m_EditorClassIdentifier: 
   LevelName: Cut of the Supply Lines
-  LevelObjective: 'Ooooph! You finally reached another Union ship. But, wait what
-    does the message on your intercom say? They are actually stranded. - Well, nothing
-    ever works without. any issues. '
-  XPThreshold: 0
-  TimeThreshold: 0
-  MissionObjectiveTime: 0
-  LevelCollectables: []
-  LevelEnemies: []
+  LevelObjective: Oooph! You finally reached your allies. But wait, what does the
+    message on your intercom say? They are actually stranded on a nearby planet because
+    they were cut of the supply lines by Blurp. - They need your help! Gather as
+    much fuel as you can get coming from the close mining planet to load the only
+    working cargo ship waiting nearby.
+  XPThreshold: 500
+  TimeThreshold: 1
+  MissionObjectiveTime: 1
+  hasGatherObjective: 1
+  gatherType: Energy
+  LevelCollectables:
+  - {fileID: 11400000, guid: 616bb34761aea6f4ebf55ee0c22f5596, type: 2}
+  LevelEnemies:
+  - {fileID: 11400000, guid: cd71175d5a185b24981dc73d17de9088, type: 2}
+  - {fileID: 11400000, guid: 4506dd9a79a7d5540b01268d3bcbc333, type: 2}
