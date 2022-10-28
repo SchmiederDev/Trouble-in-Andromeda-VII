@@ -14,6 +14,10 @@ public class Level : ScriptableObject
 
     public string gatherType;
 
+    public bool UnlockLevelAccomplishment;
+    public int UnlockIndex;
+    public string UnlockText;
+
     public LevelSpawnObject[] LevelCollectables;
     public LevelSpawnEnemy[] LevelEnemies;
 }
