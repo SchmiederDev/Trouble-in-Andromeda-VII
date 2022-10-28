@@ -11,6 +11,7 @@ TagManager:
   - AlienPhaser
   - MinuteTimerTxt
   - SecondTimerTxt
+  - FlashText
   layers:
   - Default
   - TransparentFX
