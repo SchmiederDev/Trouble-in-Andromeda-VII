@@ -159,7 +159,7 @@ public class AlienEmpireXController : MonoBehaviour
 
     private void DestroyXFighter()
     {
-        XFighterAnimator.SetBool("IsDestroyed", true);
+        XFighterAnimator.SetBool("WasDestroyed", true);
         TheGame.theGameInst.audioManager.PlaySound("AsteroidHit");
     }
 }
