@@ -2,11 +2,18 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class UnionFighter : MonoBehaviour
 {
 
     public Vector3 FighterPosition;
+
+    [SerializeField]
+    private Animator UnionFighterAnim;
+
+    [SerializeField]
+    private Light2D ShipEngineLight;
 
     [SerializeField]
     private ShipWeapons MyShipWeapons;
@@ -27,6 +34,7 @@ public class UnionFighter : MonoBehaviour
     public int IntegrityMax { get; } = 100;
     public int IntegrityMin { get; } = 0;
 
+    private bool WasDestroyed = false;
 
     public int Energy { get; private set; }
     public int EnergyMax { get; } = 100;
@@ -49,9 +57,15 @@ public class UnionFighter : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        UnionFighterAnim = GetComponent<Animator>();
+        ShipEngineLight = GetComponentInChildren<Light2D>();
+        
         MyShipWeapons = GetComponentInChildren<ShipWeapons>();
+        
         MyShipWeapons.onWeaponFired += FireActiveWeapon;
+        
         Reset_Stats();
+        
         ActiveWeapon = Get_StandardWeapon(standardWeaponName);
     }
 
@@ -101,7 +115,24 @@ public class UnionFighter : MonoBehaviour
 
     private void FighterWasDestroyed()
     {
-        Debug.Log("Fighter was destroyed");
+        WasDestroyed = true;
+        UnionFighterAnim.SetBool("WasDestroyed", WasDestroyed);
+
+        ShipEngineLight.intensity = 0f;
+
+        StartCoroutine(Reload());
+    }
+
+    IEnumerator Reload()
+    {
+        yield return new WaitForSeconds(0.25f);       
+        
+        TheGame.theGameInst.StartLevel();
+
+        ShipEngineLight.intensity = 1.25f;
+        
+        WasDestroyed = false;
+        UnionFighterAnim.SetBool("WasDestroyed", WasDestroyed);
     }
 
     public bool PickUpItem(CollectableItem item)
@@ -136,7 +167,8 @@ public class UnionFighter : MonoBehaviour
                     Debug.LogWarning("Target not found");
                     return false;
                 }
-        }
+        }       
+
     }
 
     private void Repair_Ship(int chargeLoad)
