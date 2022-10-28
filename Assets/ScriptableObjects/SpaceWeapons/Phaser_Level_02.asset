@@ -16,4 +16,4 @@ MonoBehaviour:
   FirePower: 25
   ShieldBreachCapacity: 5
   EnergyLoad: 5
-  IsActivated: 0
+  IsActivated: 1
