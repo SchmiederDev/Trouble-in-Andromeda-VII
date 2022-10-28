@@ -30,7 +30,7 @@ public class TheGame : MonoBehaviour
     public List<Level> GameLevels;
 
     [SerializeField]
-    private Level ActiveLevel;
+    public Level ActiveLevel { get; private set; }
 
     private int MaxLevelIndex;
 
@@ -116,7 +116,25 @@ public class TheGame : MonoBehaviour
         if(ActiveLevel.MissionObjectiveTime)
         {
             if (Timer.minutes >= ActiveLevel.TimeThreshold)
-                ReadyForNextLevel = true;
+            {
+                if (ActiveLevel.hasGatherObjective)
+                {
+                    if (PlayerUnionFighter.Get_XP() >= ActiveLevel.XPThreshold)
+                    {
+                        Debug.Log("Mission goal accomplished");
+                        ReadyForNextLevel = true;                        
+                    }
+                        
+                    else
+                    {
+                        StartLevel();
+                        ReadyForNextLevel = false;                        
+                    }
+                }
+
+                else 
+                    ReadyForNextLevel = true;
+            }
 
             else
                 ReadyForNextLevel = false;
@@ -152,6 +170,30 @@ public class TheGame : MonoBehaviour
         Init_Spawners();
     }
 
+    public void StartLevel()
+    {
+        onLevelLoad.Invoke();
+
+        ReadyForNextLevel = false;
+        MissionCanBegin = false;
+        onMissionCanBegin.Invoke();
+
+        Timer.StopAllCoroutines();
+        Timer.Reset_Timer();
+        Timer.Init_Timer();
+
+        SetActiveLevel();
+        PlayerUnionFighter.Reset_UnionFighter_OnLevelLoad();
+
+        Reset_Spawners();
+        Init_Spawners();
+
+        Reset_LevelObjective();
+
+        SceneManager.LoadScene(CurrentLevelIndex);
+        Start_MissionObjective();
+    }
+
     private void LoadNextLevel()
     {
         int checkSum = totalXP + PlayerUnionFighter.Get_XP();
@@ -163,26 +205,7 @@ public class TheGame : MonoBehaviour
 
         Save();
 
-        onLevelLoad.Invoke();
-
-        ReadyForNextLevel = false;
-        MissionCanBegin = false;
-        onMissionCanBegin.Invoke();
-
-        Timer.StopAllCoroutines();
-        Timer.Reset_Timer();
-        Timer.Init_Timer();
-
-        Move_Current_To_Next_Level();
-        PlayerUnionFighter.Reset_UnionFighter_OnLevelLoad();
-
-        Reset_Spawners();       
-        Init_Spawners();       
-
-        Reset_LevelObjective();
-
-        SceneManager.LoadScene(CurrentLevelIndex);
-        Start_MissionObjective();
+        StartLevel();        
     }
 
     public bool LoadGame()
@@ -194,29 +217,7 @@ public class TheGame : MonoBehaviour
             if (CurrentLevelIndex != loadedGame.LevelsPlayed)
             {
                 CurrentLevelIndex = loadedGame.LevelsPlayed;
-
-                onLevelLoad.Invoke();
-
-                ReadyForNextLevel = false;
-                MissionCanBegin = false;
-                onMissionCanBegin.Invoke();
-
-                Timer.StopAllCoroutines();
-                Timer.Reset_Timer();
-                Timer.Init_Timer();
-
-                Move_Current_To_Next_Level();
-                PlayerUnionFighter.Reset_UnionFighter_OnLevelLoad();
-
-                Reset_Spawners();
-                Init_Spawners();
-
-                Reset_LevelObjective();
-
-                SceneManager.LoadScene(CurrentLevelIndex);
-                Start_MissionObjective();
-
-                
+                StartLevel();
             }
 
             else
@@ -236,11 +237,16 @@ public class TheGame : MonoBehaviour
 
     private void Save()
     {
-        SaveGame gameToSave = new SaveGame(totalXP, CurrentLevelIndex);
-        SaveSystem.Save(gameToSave);
+        SaveGame LastSave = SaveSystem.Load();
+        if (LastSave.LevelsPlayed < CurrentLevelIndex)
+        {
+            SaveGame gameToSave = new SaveGame(totalXP, CurrentLevelIndex);
+            SaveSystem.Save(gameToSave);
+        }
+
     }
 
-    private void Move_Current_To_Next_Level()
+    private void SetActiveLevel()
     {        
         ActiveLevel = GameLevels[CurrentLevelIndex];
         CurrentLevelThreshold = ActiveLevel.XPThreshold;
