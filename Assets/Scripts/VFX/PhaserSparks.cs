@@ -16,7 +16,6 @@ public class PhaserSparks : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         GameObject IncomingObject = collision.gameObject;
-        Debug.Log("colliding object: " + IncomingObject.name);
 
         if (IncomingObject.tag == "SpaceShipWeapon")
         {
