@@ -200,6 +200,19 @@ public class UnionFighter : MonoBehaviour
         ShieldStateChanged.Invoke();
     }
 
+    public void ActivateWeapon(int weaponIndex)
+    {
+        FighterWeapons[weaponIndex].IsActivated = true;
+    }
+
+    public void ResetWeapons()
+    {
+        for(int i = 1; i < FighterWeapons.Count; i++)
+        {
+            FighterWeapons[i].IsActivated = false;
+        }
+    }
+
    private void ChangeWeapon()
     {
         int maxIndex = FighterWeapons.Count - 1;
