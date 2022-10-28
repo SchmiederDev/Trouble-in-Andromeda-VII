@@ -44,7 +44,8 @@ public class Enemy : MonoBehaviour
     private IEnumerator DestroyEnemy_OnHit()
     {
         yield return new WaitForSeconds(0.28f);
-        TheGame.theGameInst.PlayerUnionFighter.Gain_XP(XP);
+        if(!TheGame.theGameInst.ActiveLevel.hasGatherObjective)
+            TheGame.theGameInst.PlayerUnionFighter.Gain_XP(XP);
         TheGame.theGameInst.Remove_Enemy(gameObject);
         Destroy(gameObject);
     }
