@@ -23,6 +23,10 @@ MonoBehaviour:
   MissionObjectiveTime: 1
   hasGatherObjective: 1
   gatherType: Energy
+  UnlockLevelAccomplishment: 1
+  UnlockIndex: 1
+  UnlockText: Congrats! You have unlocked your Phaser Level 2. Press x to change
+    weapon.
   LevelCollectables:
   - {fileID: 11400000, guid: 616bb34761aea6f4ebf55ee0c22f5596, type: 2}
   LevelEnemies:
