@@ -14,15 +14,22 @@ public class AlienEmpireXController : MonoBehaviour
 
     [SerializeField]
     private float PlayerX;
-    private int directionX;
+    private int playerDirectionX;
 
     [SerializeField]
     private float nextAlienX;
+
+    private float alienXDirection = 1f;
 
     [SerializeField]
     Vector2 MovementX;
 
     float mapEnd_X = 17f;
+
+    private bool IsFollowing = false;
+
+    [SerializeField]
+    private float LineOfSightRange = 0.5f;
 
     Enemy EnemySelf;
 
@@ -41,28 +48,47 @@ public class AlienEmpireXController : MonoBehaviour
 
     private void Update()
     {
-        Update_PlayerDirection_and_AlienPosition();
+        UpdatePlayerPosition();
+
+        if (!IsFollowing)
+            CheckFighterPosition();
+        else
+            GetPlayerInput();        
     }
 
     private void FixedUpdate()
-    {
-        if(Check_PlayerDirection_and_AlienPosition())
-            MoveXFighter();
+    {      
+
+        if (IsFollowing)
+        {
+            if (Check_PlayerDirection_and_AlienPosition())
+                FollowUnionFighter();
+        }
+
+        else
+        {
+            Range();            
+        }
+            
     }
 
-    private void Update_PlayerDirection_and_AlienPosition()
+    private void UpdatePlayerPosition()
     {
         PlayerX = TheGame.theGameInst.PlayerUnionFighter.FighterPosition.x;
-        directionX = Math.Sign(Input.GetAxisRaw("Horizontal"));                      
+    }
+
+    private void GetPlayerInput()
+    {        
+        playerDirectionX = Math.Sign(Input.GetAxisRaw("Horizontal"));                      
     }
 
     private bool Check_PlayerDirection_and_AlienPosition()
     {
-        nextAlienX = AlienXFighterRB.position.x + directionX * movementSpeed * Time.deltaTime;
+        nextAlienX = AlienXFighterRB.position.x + playerDirectionX * movementSpeed * Time.deltaTime;
 
         if (nextAlienX < mapEnd_X && nextAlienX > -(mapEnd_X))
         {
-            if(directionX < 0)
+            if(playerDirectionX < 0)
             {
                 if (AlienXFighterRB.position.x >= PlayerX)
                 {
@@ -86,10 +112,49 @@ public class AlienEmpireXController : MonoBehaviour
         else return false;
     }
 
-    private void MoveXFighter()
+    private void FollowUnionFighter()
     {
         MovementX = new Vector2(nextAlienX, 0);
         AlienXFighterRB.MovePosition(MovementX);
+    }
+
+    private void Range()
+    {
+        MovementX = new Vector2(AlienXFighterRB.position.x + alienXDirection * movementSpeed * Time.deltaTime, 0);
+        AlienXFighterRB.MovePosition(MovementX);
+    }
+
+    private void CheckFighterPosition()
+    {
+        if (alienXDirection > 0)
+        {
+            if (AlienXFighterRB.position.x > mapEnd_X)
+                SwapDirection();
+        }
+
+        else
+        {
+            if (AlienXFighterRB.position.x < -(mapEnd_X))
+                SwapDirection();
+        }
+
+        IsFollowing = CheckLineOfSight();
+    }
+
+    private void SwapDirection()
+    {
+        alienXDirection *= -1;
+    }
+
+    private bool CheckLineOfSight()
+    {
+        float negativeLineOfSight = AlienXFighterRB.position.x - LineOfSightRange;
+        float positiveLineOfSight = AlienXFighterRB.position.x + LineOfSightRange;              
+        
+        if (PlayerX >= negativeLineOfSight || PlayerX <= positiveLineOfSight)
+            return true;
+        else
+            return false;
     }
 
     private void DestroyXFighter()
