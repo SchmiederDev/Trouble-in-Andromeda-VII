@@ -12,6 +12,9 @@ public class ItemPickUp : MonoBehaviour
         {
             if (TheGame.theGameInst.PlayerUnionFighter.PickUpItem(ItemAttached))
             {
+                if (TheGame.theGameInst.ActiveLevel.hasGatherObjective == true && TheGame.theGameInst.ActiveLevel.gatherType == ItemAttached.target)
+                    TheGame.theGameInst.PlayerUnionFighter.Gain_XP(ItemAttached.charge);
+
                 TheGame.theGameInst.audioManager.PlaySound("PickUpSound");
                 Destroy(gameObject);
             }
