@@ -1383,6 +1383,14 @@ PrefabInstance:
       propertyPath: m_Offset.y
       value: 0.06
       objectReference: {fileID: 0}
+    - target: {fileID: 5296147701091472081, guid: 000ef9c94506bc2488115b6421c74945, type: 3}
+      propertyPath: fadeOutRate
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 5296147701091472081, guid: 000ef9c94506bc2488115b6421c74945, type: 3}
+      propertyPath: fadeOutTimeSpan
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 5296147701167847528, guid: 000ef9c94506bc2488115b6421c74945, type: 3}
       propertyPath: m_SizeDelta.x
       value: 70
