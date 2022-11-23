@@ -65,7 +65,7 @@ public class ShipWeapons : MonoBehaviour
     private void SpawnPhaser()
     {       
         GameObject Phaser = Instantiate(ActiveWeapon, PhaserSpawnPoint.position, Quaternion.identity);
-        //TheGame.theGameInst.audioManager.PlaySound(ActiveWeapon.name);
+        TheGame.theGameInst.audioManager.PlaySound(ActiveWeapon.name);
         TheGame.theGameInst.audioManager.PlaySound("Phaser_Level_01");
     }
 
