@@ -39,7 +39,7 @@ public class ObjectiveText : MonoBehaviour
         ObjectiveTxt = GetComponent<TMP_Text>();
 
         //Init_MissionObjective();
-        //Play_MissionObjective();        
+        //Play_MissionObjective();
     }
 
     public void Init_MissionObjective()
