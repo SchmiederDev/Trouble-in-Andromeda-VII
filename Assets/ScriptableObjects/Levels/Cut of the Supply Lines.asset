@@ -18,7 +18,7 @@ MonoBehaviour:
     they were cut of the supply lines by Blurp. - They need your help! Gather as
     much fuel as you can get coming from the close mining planet to load the only
     working cargo ship waiting nearby.
-  XPThreshold: 500
+  XPThreshold: 300
   TimeThreshold: 1
   MissionObjectiveTime: 1
   hasGatherObjective: 1
