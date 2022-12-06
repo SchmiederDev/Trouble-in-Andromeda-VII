@@ -13,13 +13,18 @@ MonoBehaviour:
   m_Name: Asteroid Belt
   m_EditorClassIdentifier: 
   LevelName: Asteroid Belt
-  LevelObjective: Oh, no. There is trouble in Andromeda VII. The confederated Union
-    of Space Equals was attacked by the evil authoritarian Alien Empire of Blurp.
-    You must aid the union in its Fight for Freedom and Equality. But first, you
-    must navigate through the dangerous asteroid field of the outer rim.
+  LevelObjective: Oh, no. There is trouble in Andromeda VII. The Federal Union of
+    Space Equals was attacked by the evil authoritarian Alien Empire of Blurp. You
+    must aid the union in its Fight for Freedom and Equality. But first, you must
+    navigate through the dangerous asteroid field of the outer rim.
   XPThreshold: 200
   TimeThreshold: 1
   MissionObjectiveTime: 0
+  hasGatherObjective: 0
+  gatherType: 
+  UnlockLevelAccomplishment: 0
+  UnlockIndex: 0
+  UnlockText: 
   LevelCollectables:
   - {fileID: 11400000, guid: 6d41c2ae391beb84ea6683cc49ed838f, type: 2}
   - {fileID: 11400000, guid: 88865ae94cdfd754e92dbd40cb547577, type: 2}
