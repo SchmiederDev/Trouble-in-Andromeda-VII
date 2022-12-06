@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a768de6b2adfeb478685442703287b8, type: 3}
+  m_Name: Protect the Cargo Ship
+  m_EditorClassIdentifier: 
+  LevelName: Protect the Cargo Ship
+  LevelObjective: Good, your allies now have enough fuel to leave the mining planet
+    and reach the closest Union basis. But as it seems Blurp won't stand idly by
+    or hesitate to attack civilians. You must protect the transport ship until they
+    can fly off!
+  XPThreshold: 1000
+  TimeThreshold: 1
+  MissionObjectiveTime: 1
+  hasGatherObjective: 0
+  gatherType: 
+  UnlockLevelAccomplishment: 0
+  UnlockIndex: 0
+  UnlockText: 
+  LevelCollectables:
+  - {fileID: 11400000, guid: 6d41c2ae391beb84ea6683cc49ed838f, type: 2}
+  - {fileID: 11400000, guid: 88865ae94cdfd754e92dbd40cb547577, type: 2}
+  - {fileID: 11400000, guid: bdca30df03825be4489b839657074882, type: 2}
+  LevelEnemies:
+  - {fileID: 11400000, guid: 204c5883b373b4d4badc766bc85e7372, type: 2}
