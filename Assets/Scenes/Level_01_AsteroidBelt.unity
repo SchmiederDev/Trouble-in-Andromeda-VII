@@ -1469,7 +1469,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: 6c4e95de8bae7554387627c4b9f82ed6, type: 2}
     - target: {fileID: 5296147702284607254, guid: 000ef9c94506bc2488115b6421c74945, type: 3}
       propertyPath: Enemies.Array.size
-      value: 4
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5296147702284607254, guid: 000ef9c94506bc2488115b6421c74945, type: 3}
       propertyPath: Pickables.Array.size
@@ -1484,8 +1484,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 5541640823628509467, guid: ba0c7dcca7b1e1341bc0d677471f0a28, type: 3}
     - target: {fileID: 5296147702284607254, guid: 000ef9c94506bc2488115b6421c74945, type: 3}
+      propertyPath: Enemies.Array.data[4]
+      value: 
+      objectReference: {fileID: 6763683548681682437, guid: 5984a26ca48cb0c4c96b8223a8ec1685, type: 3}
+    - target: {fileID: 5296147702284607254, guid: 000ef9c94506bc2488115b6421c74945, type: 3}
+      propertyPath: Enemies.Array.data[5]
+      value: 
+      objectReference: {fileID: 487296628296229596, guid: a17dda9f5bfaa714baa4ab9bbba2777c, type: 3}
+    - target: {fileID: 5296147702284607254, guid: 000ef9c94506bc2488115b6421c74945, type: 3}
       propertyPath: GameLevels.Array.size
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5296147702284607254, guid: 000ef9c94506bc2488115b6421c74945, type: 3}
       propertyPath: Pickables.Array.data[1]
@@ -1504,6 +1512,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7611863007097733363, guid: cd5b0036998f8984691113be95a23f5d, type: 3}
     - target: {fileID: 5296147702284607254, guid: 000ef9c94506bc2488115b6421c74945, type: 3}
+      propertyPath: ActiveEnemies.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5296147702284607254, guid: 000ef9c94506bc2488115b6421c74945, type: 3}
       propertyPath: GameLevels.Array.data[0]
       value: 
       objectReference: {fileID: 11400000, guid: 8606f5560adf7a0419a0dfd0cce27a8a, type: 2}
@@ -1515,6 +1527,14 @@ PrefabInstance:
       propertyPath: GameLevels.Array.data[2]
       value: 
       objectReference: {fileID: 11400000, guid: 62f1b05072157eb45b24d62ace44a82e, type: 2}
+    - target: {fileID: 5296147702284607254, guid: 000ef9c94506bc2488115b6421c74945, type: 3}
+      propertyPath: GameLevels.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: 253be2b38ff022042ab3db1629a07b07, type: 2}
+    - target: {fileID: 5296147702284607254, guid: 000ef9c94506bc2488115b6421c74945, type: 3}
+      propertyPath: GameLevels.Array.data[4]
+      value: 
+      objectReference: {fileID: 11400000, guid: c69eb40ba9da4ee4a90d3ee557ec723a, type: 2}
     - target: {fileID: 5296147702284607255, guid: 000ef9c94506bc2488115b6421c74945, type: 3}
       propertyPath: m_RootOrder
       value: 0
