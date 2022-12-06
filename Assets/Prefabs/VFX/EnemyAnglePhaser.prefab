@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 242063892409153120}
   m_Layer: 0
   m_Name: EnemyAnglePhaser
-  m_TagString: Untagged
+  m_TagString: AlienPhaser
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -125,7 +125,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e3550eeb12a6db47a9e46d44c6e2817, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerPos: {fileID: 0}
   EnemyWeapon: {fileID: 11400000, guid: 623179d951375bf49a4083f5df2e7c69, type: 2}
   PhaserTransform: {fileID: 0}
   speed: 5
