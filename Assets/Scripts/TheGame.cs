@@ -27,6 +27,9 @@ public class TheGame : MonoBehaviour
     [SerializeField]
     private List<GameObject> ActiveEnemies;
 
+    [SerializeField]
+    public List<GameObject> ActiveAllies;
+
     public List<Level> GameLevels;
 
     [SerializeField]
@@ -60,6 +63,12 @@ public class TheGame : MonoBehaviour
     private bool ReadyForNextLevel = false;
 
     private FlashText FlashMessage;
+
+    public delegate void OnActiveEnemiesChanged();
+    public OnActiveEnemiesChanged onActiveEnemiesChanged;
+
+    public delegate void OnActiveAlliesChanged();
+    public OnActiveAlliesChanged onActiveAlliesChanged;
 
     // Start is called before the first frame update
     void Awake()
@@ -242,7 +251,17 @@ public class TheGame : MonoBehaviour
     private void Save()
     {
         SaveGame LastSave = SaveSystem.Load();
-        if (LastSave.LevelsPlayed < CurrentLevelIndex)
+
+        if(LastSave != null)
+        {
+            if (LastSave.LevelsPlayed < CurrentLevelIndex)
+            {
+                SaveGame gameToSave = new SaveGame(totalXP, CurrentLevelIndex);
+                SaveSystem.Save(gameToSave);
+            }
+        }
+
+        else
         {
             SaveGame gameToSave = new SaveGame(totalXP, CurrentLevelIndex);
             SaveSystem.Save(gameToSave);
@@ -293,11 +312,37 @@ public class TheGame : MonoBehaviour
     public void Add_Enemy(GameObject NewEnemyOnScene)
     {
         ActiveEnemies.Add(NewEnemyOnScene);
+        onActiveEnemiesChanged.Invoke();
+    }
+
+    public void Add_EnemyRange(List<GameObject> NewEnemiesOnScene)
+    {
+        ActiveEnemies.AddRange(NewEnemiesOnScene);
+        onActiveEnemiesChanged.Invoke();
     }
 
     public void Remove_Enemy(GameObject EnemyToRemove)
     {
         ActiveEnemies.Remove(EnemyToRemove);
+        onActiveEnemiesChanged.Invoke();
+    }
+
+    public void Add_Ally(GameObject NewAllyOnScene)
+    {
+        ActiveAllies.Add(NewAllyOnScene);
+        onActiveAlliesChanged.Invoke();
+    }
+
+    public void Add_AllyRange(List<GameObject> NewAlliesOnScene)
+    {
+        ActiveAllies.AddRange(NewAlliesOnScene);
+        onActiveAlliesChanged.Invoke();
+    }
+
+    public void Remove_Ally(GameObject AllyToRemove)
+    {
+        ActiveAllies.Remove(AllyToRemove);
+        onActiveAlliesChanged.Invoke();
     }
 
     public int CountEnemiesOfType(string enemyTypeName)
@@ -311,6 +356,11 @@ public class TheGame : MonoBehaviour
     public int Get_ActiveEnemies()
     {
         return ActiveEnemies.Count;
+    }
+
+    public List<GameObject> Get_ActiveEnemiesGameObjects()
+    {
+        return ActiveEnemies;
     }
 
     public bool CheckIfEnemyYPosIsClear(Vector3 NextEnemyPos)
