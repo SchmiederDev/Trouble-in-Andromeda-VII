@@ -12,6 +12,8 @@ TagManager:
   - MinuteTimerTxt
   - SecondTimerTxt
   - FlashText
+  - AllyShip
+  - AllySpawner
   layers:
   - Default
   - TransparentFX
