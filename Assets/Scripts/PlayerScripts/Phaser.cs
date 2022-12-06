@@ -1,14 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Phaser : MonoBehaviour
-{
-    [SerializeField]
-    private Transform PhaserTransform;
+{    
+    public SpaceWeapon SpaceShipWeapon;
+
+    public Transform PhaserTransform;
 
     [SerializeField]
-    private float speed = 25f;
+    public float speed = 25f;
 
     private float YPos = 0f;
 
@@ -40,6 +39,11 @@ public class Phaser : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    public SpaceWeapon Get_SpaceShipWeapon()
+    {
+        return SpaceShipWeapon;
     }
 
     private void OnTriggerExit2D(Collider2D collision)
