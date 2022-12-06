@@ -157,6 +157,7 @@ MonoBehaviour:
   FighterRB: {fileID: 0}
   movementSpeed: 15
   YAcceleration: 0.01
+  rotationSpeed: 300
   hoverMaxPos: -6.45
   hoverMinPos: -6.55
 --- !u!50 &4199166024317698466
@@ -210,6 +211,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FighterPosition: {x: 0, y: 0, z: 0}
   UnionFighterAnim: {fileID: 0}
+  ShipEngineLight: {fileID: 0}
   MyShipWeapons: {fileID: 0}
   FighterWeapons:
   - {fileID: 11400000, guid: 2ec36aef4b0fcde459c2d8d12123b994, type: 2}
