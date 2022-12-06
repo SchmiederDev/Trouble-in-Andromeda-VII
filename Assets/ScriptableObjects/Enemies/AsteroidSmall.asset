@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: AsteroidSmall
   m_EditorClassIdentifier: 
   EnemyName: Small Asteroid
-  EnemyWeapon: {fileID: 0}
   ImpactMagnitude: 5
   StructuralIntegrity: 10
+  XP: 10
