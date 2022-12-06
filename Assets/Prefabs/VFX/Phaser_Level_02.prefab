@@ -98,6 +98,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c354d0f19e73d74194b096af8b3d1a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SpaceShipWeapon: {fileID: 11400000, guid: 011ff4143ea87d44a8f7ccb9c9f1d32b, type: 2}
   PhaserTransform: {fileID: 0}
   speed: 25
 --- !u!61 &6210850524108179534
