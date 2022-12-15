@@ -99,7 +99,8 @@ public class StandardAllyPhaserSpawner : MonoBehaviour
         Targets = TheGame.theGameInst.Get_ActiveEnemiesGameObjects();
         newTargetCount = Targets.Count;
 
-        FindActiveEnemy();
+        if(Targets != null && Targets.Count > 0)
+            FindActiveEnemy();
     }
 
     private void FindActiveEnemy()
