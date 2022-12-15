@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LevelName: The Great Devourer
   LevelObjective: 'Thanks to you the transport ship arrived savely at the nearest
-    Union basis and you did, too. But aahw. can''t you have a moment of rest... No,
-    day went by when the message came: Blurp is encroaching on the basis... and it''s
-    worse than ever. A huge Blurp battle ship, called ''The Devourer'' , is already
-    very close. You have to defend the basis - luckily this time you are not alone.'
+    Union basis. But aahw. can''t you have a moment of rest... Blurp is encroaching
+    on the basis... Not a day went by and it''s worse than ever: A huge Blurp battle
+    ship, called ''The Devourer'', is already very close. You have to defend the
+    basis - luckily this time you are not alone!'
   XPThreshold: 2000
   TimeThreshold: 0
   MissionObjectiveTime: 0
