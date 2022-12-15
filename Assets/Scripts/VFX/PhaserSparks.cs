@@ -1,11 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PhaserSparks : MonoBehaviour
 {
     [SerializeField]
     private Animator SparksAnimator;
+
+    const string weaponTag = "SpaceShipWeapon";
+    const string enemyPhaserTag = "AlienPhaser";
 
     // Start is called before the first frame update
     void Start()
@@ -17,7 +18,7 @@ public class PhaserSparks : MonoBehaviour
     {
         GameObject IncomingObject = collision.gameObject;
 
-        if (IncomingObject.tag == "SpaceShipWeapon")
+        if (IncomingObject.tag == weaponTag || IncomingObject.tag == enemyPhaserTag)
         {
             SparksAnimator.SetTrigger("WasHit");
             TheGame.theGameInst.audioManager.PlaySound("LaserHit_01");
