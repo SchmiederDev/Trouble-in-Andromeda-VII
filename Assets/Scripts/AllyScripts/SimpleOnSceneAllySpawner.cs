@@ -72,7 +72,7 @@ public class SimpleOnSceneAllySpawner : MonoBehaviour
     {
         yield return new WaitForSeconds(respawnTime);
         GameObject NewAlly = Instantiate(AllyShip, AllySpawnPoint.position, AllySpawnPoint.rotation, AllySpawnPoint);
-        TheGame.theGameInst.ActiveAllies.Add(NewAlly);
+        TheGame.theGameInst.Add_Ally(NewAlly);
 
         if (spawnedShips < spawnedShipsThreshold)
             spawnedShips++;
