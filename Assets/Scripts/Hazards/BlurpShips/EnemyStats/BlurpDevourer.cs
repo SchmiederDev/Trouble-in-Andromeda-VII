@@ -13,6 +13,11 @@ public class BlurpDevourer : Enemy
     Enemy BattleTower_02;
 
     [SerializeField]
+    Animator BattleTower_01_Animator;
+    [SerializeField]
+    Animator BattleTower_02_Animator;
+
+    [SerializeField]
     BarSlider Devourer_HealthBar;
 
     [SerializeField]
@@ -65,11 +70,11 @@ public class BlurpDevourer : Enemy
 
     private void Destroy_BattleTower_01()
     {
-
+        BattleTower_01_Animator.SetBool("WasDestroyed", true);
     }
 
     private void Destroy_BattleTower_02()
     {
-
+        BattleTower_02_Animator.SetBool("WasDestroyed", true);
     }
 }
