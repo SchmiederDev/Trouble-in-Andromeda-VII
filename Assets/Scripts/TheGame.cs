@@ -312,37 +312,49 @@ public class TheGame : MonoBehaviour
     public void Add_Enemy(GameObject NewEnemyOnScene)
     {
         ActiveEnemies.Add(NewEnemyOnScene);
-        onActiveEnemiesChanged.Invoke();
+
+        if(onActiveEnemiesChanged != null)
+            onActiveEnemiesChanged.Invoke();
     }
 
     public void Add_EnemyRange(List<GameObject> NewEnemiesOnScene)
     {
         ActiveEnemies.AddRange(NewEnemiesOnScene);
-        onActiveEnemiesChanged.Invoke();
+
+        if(onActiveEnemiesChanged!=null)
+            onActiveEnemiesChanged.Invoke();
     }
 
     public void Remove_Enemy(GameObject EnemyToRemove)
     {
         ActiveEnemies.Remove(EnemyToRemove);
-        onActiveEnemiesChanged.Invoke();
+
+        if(onActiveEnemiesChanged != null)
+            onActiveEnemiesChanged.Invoke();
     }
 
     public void Add_Ally(GameObject NewAllyOnScene)
     {
         ActiveAllies.Add(NewAllyOnScene);
-        onActiveAlliesChanged.Invoke();
+
+        if(onActiveAlliesChanged != null)
+            onActiveAlliesChanged.Invoke();
     }
 
     public void Add_AllyRange(List<GameObject> NewAlliesOnScene)
     {
         ActiveAllies.AddRange(NewAlliesOnScene);
-        onActiveAlliesChanged.Invoke();
+
+        if(onActiveAlliesChanged != null)
+            onActiveAlliesChanged.Invoke();
     }
 
     public void Remove_Ally(GameObject AllyToRemove)
     {
         ActiveAllies.Remove(AllyToRemove);
-        onActiveAlliesChanged.Invoke();
+
+        if(onActiveAlliesChanged != null)
+            onActiveAlliesChanged.Invoke();
     }
 
     public int CountEnemiesOfType(string enemyTypeName)
