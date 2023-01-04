@@ -71,7 +71,7 @@ public class FlashText : MonoBehaviour
         }
     }
 
-    private void Set_FlashText(string message)
+    public void Set_FlashText(string message)
     {
         flashTxtTMP.text = message;        
         StartCoroutine(FadeIn());
