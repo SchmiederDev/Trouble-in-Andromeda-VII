@@ -37,23 +37,21 @@ public class ObjectiveText : MonoBehaviour
     void Start()
     {
         ObjectiveTxt = GetComponent<TMP_Text>();
-
-        //Init_MissionObjective();
-        //Play_MissionObjective();
     }
 
     public void Init_MissionObjective()
     {
+        ObjectiveTxt = GetComponent<TMP_Text>();
         ObjectiveTxt.text = null;
         charCounter = 0;
         missionObjective = TheGame.theGameInst.Get_CurrentMissionObjective();
 
         missionObjChars = new char[missionObjective.Length];
-        missionObjChars = missionObjective.ToCharArray();        
+        missionObjChars = missionObjective.ToCharArray();
     }
 
     public void Play_MissionObjective()
-    {        
+    {
         StartCoroutine(Fade());
         StartCoroutine(AddLettersToObjective());
         StartCoroutine(PlayBlipSound());
@@ -93,10 +91,6 @@ public class ObjectiveText : MonoBehaviour
 
             StartCoroutine(FadeOut());
         }
-        else
-        {
-            TheGame.theGameInst.MissionCanBegin = true;
-        }
     }
 
     IEnumerator AddLettersToObjective()
@@ -119,5 +113,11 @@ public class ObjectiveText : MonoBehaviour
         {
             StartCoroutine(PlayBlipSound());
         }
+    }
+
+    public void HideText()
+    {
+        ObjectiveTextAlpha = 0;
+        ObjectiveTxt.color = new Color(ObjectiveTxt.color.r, ObjectiveTxt.color.g, ObjectiveTxt.color.b, ObjectiveTextAlpha);
     }
 }
