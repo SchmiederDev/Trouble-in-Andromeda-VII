@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Level_05_The Great Devourer.unity
     guid: 06b40e219b9e97945ac8442d41c85727
+  - enabled: 1
+    path: Assets/Scenes/CreditsScene.unity
+    guid: c4bc47d254a4d2d4ab35c96604d98a66
   m_configObjects: {}
