@@ -13,13 +13,12 @@ public class UnionFighter : MonoBehaviour
     private Animator UnionFighterAnim;
 
     [SerializeField]
-    private Light2D ShipEngineLight;
+    private EnginePulse ShipEngineLight;
 
     [SerializeField]
     private ShipWeapons MyShipWeapons;
-
-    [SerializeField]
-    private List<UnionFighterWeapon> FighterWeapons;
+    
+    public List<UnionFighterWeapon> FighterWeapons;
 
     public UnionFighterWeapon ActiveWeapon;
 
@@ -58,7 +57,7 @@ public class UnionFighter : MonoBehaviour
     void Awake()
     {
         UnionFighterAnim = GetComponent<Animator>();
-        ShipEngineLight = GetComponentInChildren<Light2D>();
+        ShipEngineLight = GetComponentInChildren<EnginePulse>();
         
         MyShipWeapons = GetComponentInChildren<ShipWeapons>();
         
@@ -75,10 +74,7 @@ public class UnionFighter : MonoBehaviour
         FighterPosition = gameObject.transform.position;
         
         if (Input.GetKeyDown(KeyCode.X))
-        {
             ChangeWeapon();
-            
-        }
     }    
 
     private UnionFighterWeapon Get_StandardWeapon(string StandardWeaponName)
@@ -115,24 +111,29 @@ public class UnionFighter : MonoBehaviour
 
     private void FighterWasDestroyed()
     {
-        WasDestroyed = true;
-        UnionFighterAnim.SetBool("WasDestroyed", WasDestroyed);
+        ShipEngineLight.shouldPulse = false;
+        ShipEngineLight.SwitchLightOff();
 
-        ShipEngineLight.intensity = 0f;
+        WasDestroyed = true;
+        UnionFighterAnim.SetBool("WasDestroyed", WasDestroyed);       
 
         StartCoroutine(Reload());
     }
 
     IEnumerator Reload()
     {
-        yield return new WaitForSeconds(0.25f);       
-        
-        TheGame.theGameInst.StartLevel();
+        yield return new WaitForSeconds(0.25f);
 
-        ShipEngineLight.intensity = 1.25f;
-        
+        if (TheGame.theGameInst.GetLevelIndex() > 0)
+            TheGame.theGameInst.StartLevel();
+        else
+            TheGame.theGameInst.RestartLevel();
+
         WasDestroyed = false;
         UnionFighterAnim.SetBool("WasDestroyed", WasDestroyed);
+
+        ShipEngineLight.shouldPulse = true;        
+        
     }
 
     public bool PickUpItem(CollectableItem item)
@@ -203,6 +204,14 @@ public class UnionFighter : MonoBehaviour
     public void ActivateWeapon(int weaponIndex)
     {
         FighterWeapons[weaponIndex].IsActivated = true;
+    }
+
+    public void LoadWeapons(bool[] unlockedWeapons)
+    {
+        for(int i = 0; i < unlockedWeapons.Length; i++)
+        {
+            FighterWeapons[i].IsActivated = unlockedWeapons[i];
+        }
     }
 
     public void ResetWeapons()
@@ -283,10 +292,19 @@ public class UnionFighter : MonoBehaviour
         XP_Changed.Invoke();
     }
 
+    private void Reset_Shield()
+    {
+        if (IsShieldActive)
+            IsShieldActive = false;
+
+        ShieldStateChanged.Invoke();
+    }
+
     public void Reset_UnionFighter_OnLevelLoad()
     {
         Reset_XP();
         Reset_Stats();
+        Reset_Shield();
     }
 
 }
