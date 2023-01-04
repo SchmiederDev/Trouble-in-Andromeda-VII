@@ -104,7 +104,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
   m_sharedMaterial: {fileID: 2164040, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
@@ -186,6 +186,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeInSpan: 0.025
-  fadeInRate: 0.01
+  shortFadeInRate: 0.05
+  longFadeInRate: 0.01
   fadeOutSpan: 0.025
-  fadeOutRate: 0.02
+  shortFadeOutRate: 0.1
+  longFadeOutRate: 0.05
