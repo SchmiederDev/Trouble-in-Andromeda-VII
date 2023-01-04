@@ -23,6 +23,7 @@ public class EnginePulse : MonoBehaviour
 
     bool pulseUpwards = false;
 
+    public bool shouldPulse { set; get; } = true;
 
     // Start is called before the first frame update
     void Start()
@@ -34,21 +35,29 @@ public class EnginePulse : MonoBehaviour
     void Update()
     {        
 
-        if (pulseUpwards)
+        if(shouldPulse)
         {
-            EngineLight.intensity += pulseRate * Time.deltaTime * pulseSpeed;            
+            if (pulseUpwards)
+            {
+                EngineLight.intensity += pulseRate * Time.deltaTime * pulseSpeed;
 
-            if (EngineLight.intensity >= intensityMax)
-                pulseUpwards = false;
+                if (EngineLight.intensity >= intensityMax)
+                    pulseUpwards = false;
+            }
+
+            else
+            {
+                EngineLight.intensity -= pulseRate * Time.deltaTime * pulseSpeed;
+
+                if (EngineLight.intensity <= intensityMin)
+                    pulseUpwards = true;
+            }
         }
 
-        else
-        {
-            EngineLight.intensity -= pulseRate * Time.deltaTime * pulseSpeed;
+    }
 
-            if (EngineLight.intensity <= intensityMin)
-                pulseUpwards = true;
-        }
-
+    public void SwitchLightOff()
+    {
+        EngineLight.intensity = 0;
     }
 }
