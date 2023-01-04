@@ -8,67 +8,67 @@ public class TheGame : MonoBehaviour
     public static TheGame theGameInst;
 
     public GameTimer Timer;
-
-    public bool MissionCanBegin = false;
-    public delegate void OnMissionCanBegin();
-    public OnMissionCanBegin onMissionCanBegin;
-
-    public delegate void OnLevelLoad();
-    public OnLevelLoad onLevelLoad;
+    public AudioManager audioManager;
 
     public UnionFighter PlayerUnionFighter;
 
     private int totalXP = 0;
     private const int maxXP = 5000000;
 
-    public List<GameObject> Enemies;
-    public List<GameObject> Pickables;
 
-    [SerializeField]
-    private List<GameObject> ActiveEnemies;
-
-    [SerializeField]
-    public List<GameObject> ActiveAllies;
+    private int MaxLevelIndex;    
+    private int CurrentLevelIndex = 0;
+    private int CurrentLevelThreshold = 500;
 
     public List<Level> GameLevels;
-
+    
     [SerializeField]
     public Level ActiveLevel { get; private set; }
+    private bool ReadyForNextLevel = false;
 
-    private int MaxLevelIndex;
+
+    public delegate void OnLevelLoad();
+    public OnLevelLoad onLevelLoad;
+
+    public bool MissionCanBegin = false;
+    public delegate void OnMissionCanBegin();
+    public OnMissionCanBegin onMissionCanBegin;
+
 
     [SerializeField]
     private ObjectiveStarter LevelObjectiveStarter;
-
-    [SerializeField]
-    private StandardSpawner CollectableSpawner;
-
-    [SerializeField]
-    private EnemySpawner MainEnemySpawner;
-
-    public AudioManager audioManager;
+    private FlashText FlashMessage;
 
     [SerializeField]
     private BarSlider IntegritySlider;
-
     [SerializeField]
     private BarSlider ShieldSlider;
-
     [SerializeField]
     private BarSlider EnergySlider;
+    
 
-    private int CurrentLevelThreshold = 500;
-    private int CurrentLevelIndex = 0;
+    [SerializeField]
+    private StandardSpawner CollectableSpawner;
+    [SerializeField]
+    private EnemySpawner MainEnemySpawner;
 
-    private bool ReadyForNextLevel = false;
 
-    private FlashText FlashMessage;
+    public List<GameObject> Enemies;
+    public List<GameObject> Pickables;
+
+
+    [SerializeField]
+    private List<GameObject> ActiveEnemies;
+    [SerializeField]
+    public List<GameObject> ActiveAllies;
+
 
     public delegate void OnActiveEnemiesChanged();
     public OnActiveEnemiesChanged onActiveEnemiesChanged;
 
     public delegate void OnActiveAlliesChanged();
     public OnActiveAlliesChanged onActiveAlliesChanged;
+    
 
     // Start is called before the first frame update
     void Awake()
@@ -88,16 +88,31 @@ public class TheGame : MonoBehaviour
         Init_TheGame();
     }
 
+    private void Start()
+    {
+        Show_CurrentLevel();
+    }
+
     private void Init_TheGame()
     {
-        FlashMessage = GetComponentInChildren<FlashText>();
+        MaxLevelIndex = SceneManager.sceneCountInBuildSettings;
+
+        InitTimerFirstTime();
+        FetchAudioManager();
+        Init_GameElements_UI_Association();
+        Init_EnemiesAndAllies();
+        FirstLevelLoad();
+    }
+
+    private void InitTimerFirstTime()
+    {
         Timer = GetComponentInChildren<GameTimer>();
         Timer.Init_Timer();
-        MaxLevelIndex = SceneManager.sceneCountInBuildSettings;
+    }
+
+    private void FetchAudioManager()
+    {
         audioManager = GetComponentInChildren<AudioManager>();
-        Init_GameElements_UI_Association();
-        ActiveEnemies = new List<GameObject>();
-        FirstLevelLoad();
     }
 
     private void Init_GameElements_UI_Association()
@@ -107,6 +122,33 @@ public class TheGame : MonoBehaviour
         EnergySlider.Set_MaxBarValue(PlayerUnionFighter.EnergyMax);
 
         LevelObjectiveStarter = GetComponentInChildren<ObjectiveStarter>();
+        FlashMessage = GetComponentInChildren<FlashText>();
+    }
+
+    private void Init_EnemiesAndAllies()
+    {
+        ActiveEnemies = new List<GameObject>();
+        ActiveAllies = new List<GameObject>();
+    }
+
+    private void FirstLevelLoad()
+    {
+        SetFirstLevel();
+        PlayerUnionFighter.ResetWeapons();
+        FetchSpawners();
+        Init_Spawners();
+    }
+
+    private void SetFirstLevel()
+    {
+        ActiveLevel = GameLevels[0];
+        CurrentLevelThreshold = ActiveLevel.XPThreshold;
+    }
+
+    private void FetchSpawners()
+    {
+        CollectableSpawner = GetComponentInChildren<StandardSpawner>();
+        MainEnemySpawner = GetComponentInChildren<EnemySpawner>();
     }
 
     // Update is called once per frame
@@ -132,8 +174,7 @@ public class TheGame : MonoBehaviour
                 if (ActiveLevel.hasGatherObjective)
                 {
                     if (PlayerUnionFighter.Get_XP() >= ActiveLevel.XPThreshold)
-                    {
-                        Debug.Log("Mission goal accomplished");
+                    {                        
                         ReadyForNextLevel = true;                        
                     }
                         
@@ -165,7 +206,7 @@ public class TheGame : MonoBehaviour
         {
             CurrentLevelIndex++;
 
-            if(CurrentLevelIndex < SceneManager.sceneCountInBuildSettings)
+            if(CurrentLevelIndex < MaxLevelIndex)
                 LoadNextLevel();
 
             else
@@ -173,27 +214,19 @@ public class TheGame : MonoBehaviour
         }
     }
 
-    private void FirstLevelLoad()
-    {
-        CollectableSpawner = GetComponentInChildren<StandardSpawner>();
-        MainEnemySpawner = GetComponentInChildren<EnemySpawner>();
-        ActiveLevel = GameLevels[0];
-        CurrentLevelThreshold = ActiveLevel.XPThreshold;
-        PlayerUnionFighter.ResetWeapons();
-        Init_Spawners();
-    }
+    
 
     public void StartLevel()
     {
+        SceneManager.LoadScene(CurrentLevelIndex, LoadSceneMode.Single);
+
         onLevelLoad.Invoke();
 
         ReadyForNextLevel = false;
         MissionCanBegin = false;
         onMissionCanBegin.Invoke();
 
-        Timer.StopAllCoroutines();
-        Timer.Reset_Timer();
-        Timer.Init_Timer();
+        RestartTimer();
 
         SetActiveLevel();
         PlayerUnionFighter.Reset_UnionFighter_OnLevelLoad();
@@ -203,8 +236,28 @@ public class TheGame : MonoBehaviour
 
         Reset_LevelObjective();
 
-        SceneManager.LoadScene(CurrentLevelIndex);
         Start_MissionObjective();
+
+        Show_CurrentLevel();
+    }
+
+    public void RestartLevel()
+    {
+        onLevelLoad.Invoke();
+
+        MissionCanBegin = false;
+        onMissionCanBegin.Invoke();
+
+        RestartTimer();
+
+        PlayerUnionFighter.Reset_UnionFighter_OnLevelLoad();
+
+        Reset_Spawners();
+        Init_Spawners();
+
+        Start_MissionObjective();
+
+        Show_CurrentLevel();
     }
 
     private void LoadNextLevel()
@@ -221,6 +274,29 @@ public class TheGame : MonoBehaviour
         StartLevel();        
     }
 
+    private void Save()
+    {
+        SaveGame LastSave = SaveSystem.Load();
+
+        if (LastSave != null)
+        {
+            int lastGameLevel = MaxLevelIndex - 1;
+
+            if (LastSave.LevelsPlayed < CurrentLevelIndex && CurrentLevelIndex < lastGameLevel)
+            {
+                SaveGame gameToSave = new SaveGame(totalXP, CurrentLevelIndex);
+                SaveSystem.Save(gameToSave);
+            }
+        }
+
+        else
+        {
+            SaveGame gameToSave = new SaveGame(totalXP, CurrentLevelIndex);
+            SaveSystem.Save(gameToSave);
+        }
+
+    }
+
     public bool LoadGame()
     {
         SaveGame loadedGame = SaveSystem.Load();
@@ -230,6 +306,7 @@ public class TheGame : MonoBehaviour
             if (CurrentLevelIndex != loadedGame.LevelsPlayed)
             {
                 CurrentLevelIndex = loadedGame.LevelsPlayed;
+                PlayerUnionFighter.LoadWeapons(loadedGame.unlockedWeapons);
                 StartLevel();
             }
 
@@ -248,25 +325,11 @@ public class TheGame : MonoBehaviour
         }
     }
 
-    private void Save()
+    private void RestartTimer()
     {
-        SaveGame LastSave = SaveSystem.Load();
-
-        if(LastSave != null)
-        {
-            if (LastSave.LevelsPlayed < CurrentLevelIndex)
-            {
-                SaveGame gameToSave = new SaveGame(totalXP, CurrentLevelIndex);
-                SaveSystem.Save(gameToSave);
-            }
-        }
-
-        else
-        {
-            SaveGame gameToSave = new SaveGame(totalXP, CurrentLevelIndex);
-            SaveSystem.Save(gameToSave);
-        }
-
+        Timer.StopAllCoroutines();
+        Timer.Reset_Timer();
+        Timer.Init_Timer();
     }
 
     private void SetActiveLevel()
@@ -298,15 +361,32 @@ public class TheGame : MonoBehaviour
         LevelObjectiveStarter.Start_MissionObjective();
     }
 
-    public string Get_CurrentMissionObjective()
-    {
-        return ActiveLevel.LevelObjective;
-    }
-
     private void Reset_LevelObjective()
     {
         LevelObjectiveStarter.StopAllCoroutines();
         LevelObjectiveStarter.StopCoroutines_InObjectiveTxtChild();
+    }
+
+    public void Set_FlashMessage(string message)
+    {
+        FlashMessage.MessageChanged.Invoke(message);
+    }
+
+    private void Show_CurrentLevel()
+    {
+        int levelCount = CurrentLevelIndex + 1;
+        string levelMessage = "Level: " + levelCount + " - " + ActiveLevel.LevelName;
+        Set_FlashMessage(levelMessage);
+    }
+
+    public int GetLevelIndex()
+    {
+        return CurrentLevelIndex;
+    }
+
+    public string Get_CurrentMissionObjective()
+    {
+        return ActiveLevel.LevelObjective;
     }
 
     public void Add_Enemy(GameObject NewEnemyOnScene)
@@ -383,10 +463,5 @@ public class TheGame : MonoBehaviour
         bool IsSpaceOccupied = ActiveEnemies.TrueForAll(EnemyElement => EnemyElement.transform.position.y < minNegativeDistance || EnemyElement.transform.position.y > maxPositiveDistance);
         return IsSpaceOccupied;
     }
-
-    public void Set_FlashMessage(string message)
-    {        
-        FlashMessage.MessageChanged.Invoke(message);
-    }
-
+    
 }
