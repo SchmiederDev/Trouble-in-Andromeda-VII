@@ -13,6 +13,7 @@ public static class SaveSystem
         FileStream fileStream = new FileStream(filePath, FileMode.Create);
 
         SaveGame dataToStore = new SaveGame(saveGame.TotalXP, saveGame.LevelsPlayed);
+        dataToStore.TransferUnlockedWeapons();
 
         binaryFormatter.Serialize(fileStream, dataToStore);    
         fileStream.Close();
