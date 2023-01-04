@@ -27,9 +27,6 @@ public class UnionFighterController : MonoBehaviour
     [SerializeField]
     private float hoverMinPos = -6.55f;
 
-    private bool lastWasUp = true;
-    private float hoverThrust = 500f;
-
     private float levelBorderX = 17f;
     private float levelBorderY = 8.5f;
 
@@ -44,7 +41,6 @@ public class UnionFighterController : MonoBehaviour
         steeringMode = FighterSteeringMode.DefaultHoverX;
         TheGame.theGameInst.onMissionCanBegin += Enable_Controls;
         TheGame.theGameInst.onLevelLoad += Reset_FighterPosition;
-        ControlsEnabled = true;
     }
 
     // Update is called once per frame
@@ -59,28 +55,6 @@ public class UnionFighterController : MonoBehaviour
             ControlMovement_AccordingTo_SteeringMode();            
         }        
     }
-
-    private void FixedUpdate()
-    {        
-        MoveUnionFighter();
-    }
-
-    private void Set_SteeringMode_PressingKey()
-    {
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            steeringMode++;
-
-            int steeringModeIndex = (int)steeringMode;
-            int steeringModeLength = Enum.GetNames(typeof(FighterSteeringMode)).Length;
-            if (steeringModeIndex > steeringModeLength - 1)
-                steeringMode = FighterSteeringMode.DefaultHoverX;
-
-            Reset_FighterPosition();
-            FighterRB.freezeRotation = true;
-        }
-    }
-
     private void ControlMovement_AccordingTo_SteeringMode()
     {
         switch (steeringMode)
@@ -106,6 +80,28 @@ public class UnionFighterController : MonoBehaviour
                 break;
         }
     }
+
+    private void Set_SteeringMode_PressingKey()
+    {
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            steeringMode++;
+
+            int steeringModeIndex = (int)steeringMode;
+            int steeringModeLength = Enum.GetNames(typeof(FighterSteeringMode)).Length;
+            if (steeringModeIndex > steeringModeLength - 1)
+                steeringMode = FighterSteeringMode.DefaultHoverX;
+
+            Reset_FighterPosition();
+            FighterRB.freezeRotation = true;
+        }
+    }
+
+    private void FixedUpdate()
+    {        
+        if(ControlsEnabled)
+            MoveUnionFighter();
+    }   
 
     private void MoveUnionFighter()
     {
@@ -167,6 +163,17 @@ public class UnionFighterController : MonoBehaviour
     private void Enable_Controls()
     {
         ControlsEnabled = TheGame.theGameInst.MissionCanBegin;
+
+        if (!ControlsEnabled)
+            FighterRB.constraints = RigidbodyConstraints2D.FreezeAll;
+
+        else
+        {
+            if (steeringMode != FighterSteeringMode.Rotate)
+                FighterRB.constraints = RigidbodyConstraints2D.FreezeRotation;
+            else
+                FighterRB.constraints = RigidbodyConstraints2D.FreezePosition;
+        }
     }
 
     private void Check_YPosition()
@@ -205,29 +212,6 @@ public class UnionFighterController : MonoBehaviour
     private void SwitchYDirection()
     {
         MovementInput.y *= -1f;
-    }
-
-    private void SwitchImpulseDirection()
-    {
-        hoverThrust *= -1f;
-    }
-
-    private void Hover()
-    {
-
-        if (lastWasUp)
-        {
-            SwitchImpulseDirection();
-            lastWasUp = false;
-        }
-
-        else
-        {
-            SwitchImpulseDirection();
-            lastWasUp = true;
-        }
-
-        FighterRB.AddForce(Vector2.up * hoverThrust, ForceMode2D.Impulse);
     }
 
     private enum FighterSteeringMode
