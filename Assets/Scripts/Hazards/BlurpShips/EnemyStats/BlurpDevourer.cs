@@ -65,7 +65,7 @@ public class BlurpDevourer : Enemy
 
     private void DestroyDevourerOnHit()
     {
-
+        TheGame.theGameInst.Set_FlashMessage("Yeehaw!!! - We made it! - Take that Blurp!");
     }
 
     private void Destroy_BattleTower_01()
