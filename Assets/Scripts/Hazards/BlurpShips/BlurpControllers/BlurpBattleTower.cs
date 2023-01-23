@@ -27,7 +27,7 @@ public class BlurpBattleTower : MonoBehaviour
         battleTowerName = gameObject.name; 
         Devourer = GetComponentInParent<BlurpDevourer>();
         BattleTowerRB = GetComponent<Rigidbody2D>();
-        towerAngle = rotationMin;
+        towerAngle = 0f;
         BattleTowerRB.rotation = towerAngle;
     }
 
