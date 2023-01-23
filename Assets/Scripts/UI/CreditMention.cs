@@ -9,7 +9,7 @@ public class CreditMention : MonoBehaviour
     TMP_Text CreditTxt;
 
     [SerializeField]
-    float movementSpeed = 2f;
+    float movementSpeed = 1f;
 
     [SerializeField]
     float maxYPos = 10f;
@@ -60,18 +60,20 @@ public class CreditMention : MonoBehaviour
 
     IEnumerator FadeOut()
     {
-        yield return new WaitForSeconds(timeStep);
+        yield return new WaitForSecondsRealtime(timeStep);
 
-        CreditTxt.fontSize -= shrinkRate * Time.deltaTime;
+        if(CreditTxt.fontSize > 0)
+            CreditTxt.fontSize -= shrinkRate * Time.deltaTime;
 
         if (shouldFade)
-        {
+        {            
             alpha -= fadeOutRate * Time.deltaTime;
 
             if (alpha > alphaMin)
             {
                 CreditTxt.color = new Color(CreditTxt.color.r, CreditTxt.color.g, CreditTxt.color.b, alpha);                
             }
+            
         }
 
         StartCoroutine(FadeOut());
