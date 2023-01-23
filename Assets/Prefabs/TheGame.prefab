@@ -791,6 +791,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2afb99d252d858749a6152471ba2d498, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &3839018064642283538
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6543014813455953638}
+  - component: {fileID: 8545946067241784674}
+  m_Layer: 0
+  m_Name: FileLog
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6543014813455953638
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3839018064642283538}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5296147702284607255}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8545946067241784674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3839018064642283538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6609fa4b2e408a44494cca24d505d33c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3848084467314876831
 GameObject:
   m_ObjectHideFlags: 0
@@ -1313,6 +1357,7 @@ Transform:
   - {fileID: 5296147701551619112}
   - {fileID: 153406957626747773}
   - {fileID: 2788858740419070186}
+  - {fileID: 6543014813455953638}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1329,8 +1374,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Timer: {fileID: 0}
-  MissionCanBegin: 0
+  audioManager: {fileID: 0}
   PlayerUnionFighter: {fileID: 5296147700764754491}
+  GameLevels:
+  - {fileID: 11400000, guid: 8606f5560adf7a0419a0dfd0cce27a8a, type: 2}
+  - {fileID: 11400000, guid: 435149e78b0ee9e4185caad0cc721aef, type: 2}
+  - {fileID: 11400000, guid: 62f1b05072157eb45b24d62ace44a82e, type: 2}
+  - {fileID: 11400000, guid: 253be2b38ff022042ab3db1629a07b07, type: 2}
+  - {fileID: 11400000, guid: c69eb40ba9da4ee4a90d3ee557ec723a, type: 2}
+  - {fileID: 11400000, guid: 31265d02d0b00cf4d8f08a9f769de292, type: 2}
+  MissionCanBegin: 0
+  LevelObjectiveStarter: {fileID: 0}
+  IntegritySlider: {fileID: 5296147702520274817}
+  ShieldSlider: {fileID: 5296147702276917004}
+  EnergySlider: {fileID: 5296147700952953868}
+  CollectableSpawner: {fileID: 0}
+  MainEnemySpawner: {fileID: 0}
   Enemies:
   - {fileID: 215930899720427768, guid: c277508441aea1d4797451c2e67d968d, type: 3}
   - {fileID: 859410879391298507, guid: c78703d875ed9b849bd334c2cfff87cc, type: 3}
@@ -1346,19 +1405,6 @@ MonoBehaviour:
   - {fileID: 7611863007097733363, guid: cd5b0036998f8984691113be95a23f5d, type: 3}
   ActiveEnemies: []
   ActiveAllies: []
-  GameLevels:
-  - {fileID: 11400000, guid: 8606f5560adf7a0419a0dfd0cce27a8a, type: 2}
-  - {fileID: 11400000, guid: 435149e78b0ee9e4185caad0cc721aef, type: 2}
-  - {fileID: 11400000, guid: 62f1b05072157eb45b24d62ace44a82e, type: 2}
-  - {fileID: 11400000, guid: 253be2b38ff022042ab3db1629a07b07, type: 2}
-  - {fileID: 11400000, guid: c69eb40ba9da4ee4a90d3ee557ec723a, type: 2}
-  LevelObjectiveStarter: {fileID: 0}
-  CollectableSpawner: {fileID: 0}
-  MainEnemySpawner: {fileID: 0}
-  audioManager: {fileID: 0}
-  IntegritySlider: {fileID: 5296147702520274817}
-  ShieldSlider: {fileID: 5296147702276917004}
-  EnergySlider: {fileID: 5296147700952953868}
 --- !u!1 &6767216029288458023
 GameObject:
   m_ObjectHideFlags: 0
