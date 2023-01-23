@@ -140,14 +140,5 @@ public class StandardAllyPhaserSpawner : MonoBehaviour
     {
         string nextTarget = TargetPriorities[targetIndex];
         ActiveTarget = Targets.Find(targetElement => targetElement.name == nextTarget);
-
-        if (ActiveTarget != null)
-            Debug.Log("Next Target, Sender: " + gameObject.name + " Active Target: " + ActiveTarget.name);
-        else
-        {
-            Debug.Log("No target found.");
-            if (Targets.Count == 0)
-                Debug.Log("No Enemies on Scene.");
-        }
     }
 }
