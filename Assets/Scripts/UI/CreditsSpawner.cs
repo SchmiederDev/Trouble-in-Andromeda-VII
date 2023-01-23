@@ -26,14 +26,14 @@ public class CreditsSpawner : MonoBehaviour
 
     IEnumerator SpawnFirstCredit()
     {
-        yield return new WaitForSeconds(firstCreditTimeStep);
+        yield return new WaitForSecondsRealtime(firstCreditTimeStep);
         SpawnCredit();
         StartCoroutine(SpawnCredits());
     }
 
     IEnumerator WaitForMissionStart()
     {
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSecondsRealtime(0.1f);
 
         if (!TheGame.theGameInst.MissionCanBegin)
             StartCoroutine(WaitForMissionStart());
@@ -43,7 +43,7 @@ public class CreditsSpawner : MonoBehaviour
 
     IEnumerator SpawnCredits()
     {
-        yield return new WaitForSeconds(SpawnRate);
+        yield return new WaitForSecondsRealtime(SpawnRate);
 
         creditsCounter++;
 
