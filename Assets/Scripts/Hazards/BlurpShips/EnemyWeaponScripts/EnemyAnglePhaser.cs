@@ -82,7 +82,6 @@ public class EnemyAnglePhaser : MonoBehaviour
         if (CollisionObject.tag == PlayerTag)
         {
             TheGame.theGameInst.PlayerUnionFighter.SufferDamage(EnemyWeapon.FirePower, EnemyWeapon.ShieldBreachCapacity);
-            Debug.Log("Player was hit");
         }
     }
 
