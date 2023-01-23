@@ -1518,14 +1518,6 @@ PrefabInstance:
       propertyPath: PlayerSaveGame
       value: 
       objectReference: {fileID: 11400000, guid: 6c4e95de8bae7554387627c4b9f82ed6, type: 2}
-    - target: {fileID: 5296147702284607254, guid: 000ef9c94506bc2488115b6421c74945, type: 3}
-      propertyPath: GameLevels.Array.size
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 5296147702284607254, guid: 000ef9c94506bc2488115b6421c74945, type: 3}
-      propertyPath: GameLevels.Array.data[5]
-      value: 
-      objectReference: {fileID: 11400000, guid: 31265d02d0b00cf4d8f08a9f769de292, type: 2}
     - target: {fileID: 5296147702284607255, guid: 000ef9c94506bc2488115b6421c74945, type: 3}
       propertyPath: m_RootOrder
       value: 0
